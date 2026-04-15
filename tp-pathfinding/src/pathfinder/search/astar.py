@@ -7,21 +7,23 @@ from ..models.node import Node
 class AStarSearch:
     @staticmethod
     def search(grid: Grid) -> Solution:
-        # 1. Definimos la meta para calcular la heurística
-        goal = grid.end
-        
-        # 2. Nodo raíz
+        """Find path between two points in a grid using A* Search
+
+        Args:
+            grid (Grid): Grid of points
+
+        Returns:
+            Solution: Solution found
+        """     
+        # Initialize root node
         root = Node("", state=grid.initial, cost=0, parent=None, action=None)
 
-        # 3. Función interna para la Heurística (Distancia de Manhattan)
-        def h(pos):
-            return abs(pos[0] - goal[0]) + abs(pos[1] - goal[1])
-
+        # Initialize reached and the frontier with the initial state
         reached = {root.state: root.cost}
         frontier = PriorityQueueFrontier()
         
-        # Prioridad f(n) = g(n) + h(n)
-        frontier.add(root, root.cost + h(root.state))
+        # The priority is the cost plus the heuristic
+        frontier.add(root, root.cost + grid.heuristic(root))
 
         while not frontier.is_empty():
             node = frontier.pop()
@@ -30,13 +32,16 @@ class AStarSearch:
                 return Solution(node, reached)
 
             for action in grid.actions(node.state):
+                #Get successor
                 successor = grid.result(node.state, action)
+                #Calculate the total cost
                 cost = node.cost + grid.individual_cost(node.state, action)
 
                 if successor not in reached or cost < reached[successor]:
+                    # Initialize the son node 
                     son = Node("", successor, cost, parent=node, action=action)
                     reached[successor] = cost
-                    # f(n) = g(n) + h(n)
-                    frontier.add(son, cost + h(successor))
+                    # Add the son to the frontier with the cost + the heuristic
+                    frontier.add(son, cost + grid.heuristic(son))
 
         return NoSolution(reached)

@@ -1,5 +1,5 @@
 from src.pathfinder.models.node import Node
-
+from src.pathfinder.models.heuristics import *
 
 class Grid:
     def __init__(
@@ -108,6 +108,27 @@ class Grid:
         """
         new_pos = self.result(pos, action)
         return self.grid[new_pos[0]][new_pos[1]].cost
+
+    def heuristic(self, node: Node, method: str = "Manhattan") -> int:
+        """Get the heuristic value of a cell from different possible heuristics
+
+        Args:
+            node (Node): Node where the heuristic is meant to be calculated
+            method (str): Heuristic to use
+
+        Returns:
+            int: Heuristic value for the cell at pos
+        """
+        pos = node.state
+        goal = self.end
+        if method == "Manhattan":
+            return manhattan_distance(pos, goal)
+        # elif method == "":
+        #     ...
+        else:
+            print("Unknown method, using Manhattan distance by default")
+            return manhattan_distance(pos, goal)
+
 
     def __repr__(self) -> str:
         return f"Grid([[...], ...], {self.initial}, {self.end})"
