@@ -45,23 +45,30 @@ def estrategia_minimax(tateti: Tateti, estado: List[List[str]]) -> Tuple[int, in
     Raises:
         NotImplementedError: Hasta que el alumno implemente el algoritmo
     """
-    # TODO: Implementar algoritmo minimax
+    def MINIMAX_MAX(tateti: Tateti, estado: List[List[str]])-> Tuple[int, int]:
+    
+    if tateti.test_terminal(estado):
+        return tateti.utilidad(estado, JUGADOR_MAX) 
+    
+    valor = -10000
 
-    # INSTRUCCIONES:
-    # 1. Eliminar la línea 'raise NotImplementedError...' de abajo
-    # 2. Implementar el algoritmo minimax aquí
-    # 3. La función debe retornar una tupla (fila, columna) con la mejor jugada
+    for accion in tateti.acciones(estado):
+        #Obtener el sucesor
+        sucesor = tateti.resultado(estado, accion)
+        valor = max(valor, MINIMAX_MIN(tateti, sucesor))
+        return valor 
 
-    raise NotImplementedError(
-        "\n" + "="*60 +
-        "\n🚫 ALGORITMO MINIMAX NO IMPLEMENTADO" +
-        "\n" + "="*60 +
-        "\n\nPara usar la estrategia Minimax debe implementarla primero." +
-        "\n\nInstrucciones:" +
-        "\n1. Abra el archivo 'estrategias.py'" +
-        "\n2. Busque la función 'estrategia_minimax()'" +
-        "\n3. Elimine la línea 'raise NotImplementedError(...)'" +
-        "\n4. Implemente el algoritmo minimax" +
-        "\n\nMientras tanto, use la 'Estrategia Aleatoria'." +
-        "\n" + "="*60
-    )
+    
+    def MINIMAX_MIN(tateti: Tateti, estado: List[List[str]])-> Tuple[int, int]:
+    
+    if tateti.test_terminal(estado):
+        return tateti.utilidad(estado, JUGADOR_MAX) 
+    
+    valor = 10000
+
+    for accion in tateti.acciones(estado):
+        #Obtener el sucesor
+        sucesor = tateti.resultado(estado, accion)
+        valor = min(valor, MINIMAX_MAX(tateti, sucesor))
+        return valor
+    
