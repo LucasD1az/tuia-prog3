@@ -42,9 +42,12 @@ def estrategia_minimax(tateti: Tateti, estado: List[List[str]]) -> Tuple[int, in
     Returns:
         Tuple[int, int]: Acción elegida (fila, columna)
     """
+    acciones_disponibles = tateti.acciones(estado)
+    if not acciones_disponibles:
+        raise ValueError("No hay acciones disponibles")
 
     # Definimos las funciones recursivas para calcular los valores minimax de los nodos
-    def MINIMAX_MAX(tateti: Tateti, estado: List[List[str]])-> Tuple[int, int]:
+    def MINIMAX_MAX(tateti: Tateti, estado: List[List[str]]) -> float:
         # Calcula recursivamente el valor minimax
         # en un nodo MAX
     
@@ -62,7 +65,7 @@ def estrategia_minimax(tateti: Tateti, estado: List[List[str]]) -> Tuple[int, in
         return valor 
 
     
-    def MINIMAX_MIN(tateti: Tateti, estado: List[List[str]])-> Tuple[int, int]:
+    def MINIMAX_MIN(tateti: Tateti, estado: List[List[str]]) -> float:
         # Calcula recursivamente el valor minimax
         # en un nodo MIN
 
