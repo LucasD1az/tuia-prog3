@@ -102,8 +102,27 @@ python3 test.py
 
 ### Paso 3: Probar y Validar
 1. Ejecuta las pruebas: `python3 test.py`
+
+```
+----------------------------------------------------------------------
+Ran 18 tests in 5.515s
+
+OK
+
+=== RESUMEN ===
+Pruebas ejecutadas: 18
+Errores: 0
+Fallos: 0
+
+✅ ¡TODAS LAS PRUEBAS PASARON!
+```
+
 2. Juega contra tu IA: `python3 main.py`
 3. ¿Es posible ganarle a la IA?
+
+A partir de varias ejecuciones del algoritmo (jugando varias partidas contra la IA), observamos consistentemente que la IA nunca pierde. Si el humano llega a cometer un error, la IA puede capitalizarlo y ganar. Si ambos jugadores juegan de manera óptima, la partida termina en empate.
+
+El Ta-Te-Ti es un juego resuelto, y se sabe que el mejor resultado posible para ambos jugadores es el empate. Como minimax garantiza juego óptimo, la IA siempre alcanza ese resultado como mínimo.
 
 ## 🔗 Bibliografía
 
